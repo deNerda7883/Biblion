@@ -1,0 +1,9 @@
+# App compilata
+build/
+*.app
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Dati personali (salvati fuori dal progetto in ~/Library/, non nel progetto)
