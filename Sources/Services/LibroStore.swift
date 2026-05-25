@@ -16,9 +16,17 @@ final class LibroStore: ObservableObject {
                                        appropriateFor: nil,
                                        create: true))
             ?? URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Application Support")
-        let appDir = appSupport.appendingPathComponent("Libreria", isDirectory: true)
+        let appDir = appSupport.appendingPathComponent("Biblion", isDirectory: true)
         try? fm.createDirectory(at: appDir, withIntermediateDirectories: true)
-        self.fileURL = customURL ?? appDir.appendingPathComponent("libreria.json")
+
+        // Migrazione automatica da "Libreria" (vecchio nome) a "Biblion"
+        let newFile = appDir.appendingPathComponent("biblion.json")
+        let oldFile = appSupport.appendingPathComponent("Libreria").appendingPathComponent("libreria.json")
+        if !fm.fileExists(atPath: newFile.path), fm.fileExists(atPath: oldFile.path) {
+            try? fm.copyItem(at: oldFile, to: newFile)
+        }
+
+        self.fileURL = customURL ?? newFile
 
         let enc = JSONEncoder()
         enc.dateEncodingStrategy = .iso8601

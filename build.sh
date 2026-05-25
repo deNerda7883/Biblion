@@ -1,12 +1,12 @@
 #!/bin/bash
-# Compila Libreria.app — app SwiftUI nativa macOS.
+# Compila Biblion.app — app SwiftUI nativa macOS.
 # Usa solo Command Line Tools (non serve Xcode IDE).
 
 set -e
 cd "$(dirname "$0")"
 
-APP_NAME="Libreria"
-BUNDLE_ID="com.libreria.app"
+APP_NAME="Biblion"
+BUNDLE_ID="com.biblion.app"
 APP_DIR="build/${APP_NAME}.app"
 TARGET="arm64-apple-macos14"
 
@@ -52,7 +52,7 @@ echo -n "APPL????" > "${APP_DIR}/Contents/PkgInfo"
 # 7. Firma ad-hoc (necessaria per accesso fotocamera su macOS 15+)
 echo "→ Firma ad-hoc…"
 codesign --force --deep --sign - \
-    --entitlements Resources/Libreria.entitlements \
+    --entitlements Resources/Biblion.entitlements \
     --options runtime \
     "${APP_DIR}" 2>&1 | grep -v "replacing existing signature" || true
 

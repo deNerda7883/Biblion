@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct LibreriaApp: App {
+struct BiblionApp: App {
     @StateObject private var store = LibroStore()
 
     var body: some Scene {
